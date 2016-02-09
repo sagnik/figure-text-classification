@@ -2,3 +2,9 @@ Code to classify texts in the line/ bar graph images in seven classes:
 
 1., 2., 3 and 4.  X and Y Axes value/ labels.
 5. legend. 6. Figure label. 7. Other text 
+
+
+Note
+----------
+
+each BB in a modjson file is doubled, except for the ImageBB. So, if BB for a word is [41,85,65,105], in the image the BB is [21,42,33,52]. ImageBB on the  otherhand is the actual image size. Therefore, we first multiply the ImageBB by 2.
