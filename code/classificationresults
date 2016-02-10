@@ -1,0 +1,34 @@
+Linear kernel SVM
+-------------------------------------------
+(4364, 16) (4364,)
+starting classification, iteration:  1
+accuracy 0.859125607217
+(4364, 16) (4364,)
+starting classification, iteration:  2
+accuracy 0.859819569743
+(4364, 16) (4364,)
+starting classification, iteration:  3
+accuracy 0.863983344899
+(4364, 16) (4364,)
+starting classification, iteration:  4
+accuracy 0.865371269951
+(4364, 16) (4364,)
+starting classification, iteration:  5
+accuracy 0.852185981957
+(4364, 16) (4364,)
+starting classification, iteration:  6
+accuracy 0.87092297016
+(4364, 16) (4364,)
+starting classification, iteration:  7
+accuracy 0.859125607217
+(4364, 16) (4364,)
+starting classification, iteration:  8
+accuracy 0.851492019431
+(4364, 16) (4364,)
+starting classification, iteration:  9
+accuracy 0.841776544067
+(4364, 16) (4364,)
+starting classification, iteration:  10
+accuracy 0.848716169327
+average accuracy 0.857251908397
+--------------------------------------------
