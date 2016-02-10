@@ -83,11 +83,21 @@ def FeatureExtractOneFile(loc):
             for x in charRatio(word['Text']):
                 featWord.append(x) 
             featWord.append(float(is_number(word['Text'])))
-            #number of words horizontally to the left, Y axis label
+            #number of words horizontally to the left to the end of the image, for Y axis label
             featWord.append(len(getWords(wordIndex,tuple([0,wBB[1]-10,wBB[0],wBB[1]+10]))))
-            # 
-   
+            #number of words horizontally along the whole image, how many of them are numbers? for X value
+            featWord.append(len(getWords(wordIndex,tuple([0,wBB[1]-10,W,wBB[1]+10]))))
+            featWord.append(sum([int(is_number(js['ImageText'][x]['Text'])) for x in getWords(wordIndex,tuple([0,wBB[1]-10,W,wBB[1]+10]))]))
+            #number of words above the word vertically, for figure label
+            featWord.append(len(getWords(wordIndex,tuple([wBB[0]-10,0,wBB[2]+10,wBB[1]]))))
+            #number of words below the word vertically, for X axis label
+            featWord.append(len(getWords(wordIndex,tuple([wBB[0]-10,wBB[3],wBB[2]+10,H]))))
+            #number of words within a larger rectangle of the word, how many of them are not numbers? for legend region
+            featWord.append(len(getWords(wordIndex,tuple([wBB[0]-50,wBB[1]-50,wBB[2]+50,wBB[3]+50]))))
+            featWord.append(sum([int(not is_number(js['ImageText'][x]['Text'])) for x in getWords(wordIndex,tuple([wBB[0]-50,wBB[1]-50,wBB[2]+50,wBB[3]+50]))]))
             #other features 
+
+            #class label 
             featWord.append(classDict[word['TextLabelGold']])
             feat.append(featWord) 
         return feat
