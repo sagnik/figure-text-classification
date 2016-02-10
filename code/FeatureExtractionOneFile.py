@@ -19,6 +19,7 @@ classDict={
    
 }
 
+rtreeidx=None
 SF=2 #scaling factor, see readme
 
 def getRotation(word):
@@ -63,6 +64,7 @@ def FeatureExtractOneFile(loc):
     else:
         feat=[]
         #putting words in rtree
+        global rtreeidx
         rtreeidx=RTreeIndex.Index()
  
         imgBB=js['ImageBB']
@@ -72,15 +74,19 @@ def FeatureExtractOneFile(loc):
         for ind,imagetext in enumerate(js['ImageText']):
 		rtreeidx.insert(ind,tuple(imagetext['TextBB']))
 
-        for index,word in enumerate(js['ImageText']):
+        for wordIndex,word in enumerate(js['ImageText']):
             featWord=[]
+            wBB=word['TextBB']
             featWord.append(getRotation(word))
             for x in distanceRatio(word,W,H): 
                 featWord.append(x)
             for x in charRatio(word['Text']):
                 featWord.append(x) 
             featWord.append(float(is_number(word['Text'])))
-        
+            #number of words horizontally to the left, Y axis label
+            featWord.append(len(getWords(wordIndex,tuple([0,wBB[1]-10,wBB[0],wBB[1]+10]))))
+            # 
+   
             #other features 
             featWord.append(classDict[word['TextLabelGold']])
             feat.append(featWord) 
