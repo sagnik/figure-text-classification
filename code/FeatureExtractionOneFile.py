@@ -70,7 +70,7 @@ def FeatureExtractOneFile(loc):
         imgBB=js['ImageBB']
         W=SF*(imgBB[2]-imgBB[0])
 	H=SF*(imgBB[3]-imgBB[1])
-
+        
         for ind,imagetext in enumerate(js['ImageText']):
 		rtreeidx.insert(ind,tuple(imagetext['TextBB']))
 
@@ -100,6 +100,7 @@ def FeatureExtractOneFile(loc):
             #class label 
             featWord.append(classDict[word['TextLabelGold']])
             feat.append(featWord) 
+        print loc,len(js['ImageText']),np.array(feat).shape
         return feat
 
 def main():
