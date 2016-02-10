@@ -1,6 +1,11 @@
+from __future__ import division
 import json
 import sys
 import numpy as np
+from rtree import index as RTreeIndex
+from collections import Counter
+import re
+
 
 classDict={
    'xaxislabel':1, 
@@ -14,8 +19,42 @@ classDict={
    
 }
 
+SF=2 #scaling factor, see readme
+
 def getRotation(word):
     return word['Rotation']
+
+def distanceRatio(word,W,H):
+    return [(word['TextBB'][0])/W,(W-word['TextBB'][2])/W,word['TextBB'][1]/H,(H-word['TextBB'][3])/H]  
+
+def charRatio(word): #TODO: possible empty word?
+    d=Counter([charType(x) for x in list(word)])
+    return [d.get(x,0)/len(word) for x in [0,1,2]]
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+def is_char(c):
+    if re.search(r'[a-zA-z]',c) is not None:
+        return True
+    else:
+        return False
+  
+def charType(c):
+    if is_number(c):
+        return 0
+    elif is_char(c):
+        return 1
+    else:
+        return 2  
+
+def getWords(thisWordIndex,extendedLoc):
+    return [x for x in list(rtreeidx.intersection(extendedLoc)) if x!=thisWordIndex] 
+ 
 
 def FeatureExtractOneFile(loc):
     js=json.load(open(loc))
@@ -23,10 +62,26 @@ def FeatureExtractOneFile(loc):
         return None
     else:
         feat=[]
-        for word in js['ImageText']:
+        #putting words in rtree
+        rtreeidx=RTreeIndex.Index()
+ 
+        imgBB=js['ImageBB']
+        W=SF*(imgBB[2]-imgBB[0])
+	H=SF*(imgBB[3]-imgBB[1])
+
+        for ind,imagetext in enumerate(js['ImageText']):
+		rtreeidx.insert(ind,tuple(imagetext['TextBB']))
+
+        for index,word in enumerate(js['ImageText']):
             featWord=[]
             featWord.append(getRotation(word))
-            #Other features to come here
+            for x in distanceRatio(word,W,H): 
+                featWord.append(x)
+            for x in charRatio(word['Text']):
+                featWord.append(x) 
+            featWord.append(float(is_number(word['Text'])))
+        
+            #other features 
             featWord.append(classDict[word['TextLabelGold']])
             feat.append(featWord) 
         return feat
@@ -34,7 +89,7 @@ def FeatureExtractOneFile(loc):
 def main():
     jsonLoc=sys.argv[1]
     feat=np.array(FeatureExtractOneFile(jsonLoc))
-    print feat
+    print feat.shape
 
 if __name__=="__main__":
     main()
