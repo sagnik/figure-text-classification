@@ -1,0 +1,31 @@
+from __future__ import division
+import pickle
+import sys
+import numpy as np
+
+cfs=pickle.load(open(sys.argv[1]))
+precisions=[]
+recalls=[]
+F1scores=[]
+
+for cf in cfs:
+    print cf.shape
+    if cf.shape[0]!=cf.shape[1]:
+        print "wrong conf. matrix"
+        sys.exit(1)
+    else:
+        for i in range(cf.shape[0]):
+            retrel=cf[i][i]
+            ret=np.sum(cf[:,i])
+            rel=np.sum(cf[i,:])
+            precision=round(retrel/ret)*100
+            recall=round(retrel/rel)*100
+            f1score=2*precision*recall/(precision+recall+0.1)
+            precisions.append(precision)
+            recalls.append(recall)
+            F1scores.append(f1score)
+print len(precisions)
+print len(recalls)
+print len(F1scores)                  
+         
+     

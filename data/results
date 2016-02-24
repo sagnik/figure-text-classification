@@ -1,0 +1,22 @@
+classDict={
+   1:'xaxislabel',
+   2:'xaxisvalue',
+   3:'yaxislabel',
+   4:'yaxisvalue',
+   5:'legend',
+   6:'figurelabel',
+   7:'notclassified',
+}
+
+Linear kernel SVM
+--------------------
+precisions [76.0, 90.0, 98.0, 90.0, 79.0, 68.0, 45.0]
+recalls [90.0, 92.0, 96.0, 93.0, 84.0, 51.0, 3.0]
+F1 scores [82.0, 91.0, 97.0, 91.0, 81.0, 58.0, 5.0]
+----------------------
+Random forest
+-------------------
+precisions [95.0, 95.0, 99.0, 94.0, 90.0, 81.0, 71.0]
+recalls [90.0, 96.0, 96.0, 95.0, 94.0, 76.0, 49.0]
+F1 scores [92.0, 95.0, 97.0, 94.0, 92.0, 78.0, 58.0]
+
