@@ -5,13 +5,13 @@ Total words:
 Distribution: 
 ---------------
 {
-u'legend': 1119,
-u'yaxisvalue': 1095, 
-u'xaxisvalue': 1088, 
-u'xaxislabel': 411, 
-u'yaxislabel': 376, 
-u'undefined': 137, 
-u'figurelabel': 113, 
+u'legend': 1119, 25%
+u'yaxisvalue': 1095, 25% 
+u'xaxisvalue': 1088, 25% 
+u'xaxislabel': 411, 9%
+u'yaxislabel': 376, 8% 
+u'undefined': 137, 4% 
+u'figurelabel': 113, 4%
 u'notclassified': 24
 }
 
